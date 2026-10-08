@@ -1,0 +1,24 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>かたちづくり ふりかえり</title><style>*{box-sizing:border-box}body{margin:0;background:#f2f9ff;font-family:-apple-system,'Hiragino Kaku Gothic ProN',sans-serif;color:#263447}main{max-width:800px;margin:auto;padding:16px}h1{text-align:center;font-size:clamp(28px,6vw,40px)}section{background:white;border-radius:22px;padding:22px;box-shadow:0 4px 15px #0001}h2{font-size:clamp(23px,5vw,30px)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}button{font:inherit;font-size:clamp(19px,3.6vw,25px);font-weight:bold;border:3px solid #d8e7f3;border-radius:18px;background:#fff;padding:20px 12px;min-height:86px;color:inherit;cursor:pointer}button:active{background:#e6f4ff}.result{background:#fff7db;border-radius:18px;padding:24px;font-size:clamp(25px,5vw,36px);line-height:1.8;font-weight:bold}.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}.actions button{font-size:19px;min-height:65px} [hidden]{display:none!important}@media(max-width:600px){.grid{grid-template-columns:1fr}}</style></head><body><main><h1>🔺 かたちづくり<br>ふりかえり</h1><section id="one"><h2>① どんなことを ふりかえる？</h2><div class="grid"><button data-key="a">💡 わかったこと</button><button data-key="b">👀 きづいたこと</button><button data-key="c">😊 できたこと</button><button data-key="d">🌱 もっと しりたいこと</button></div></section><section id="two" hidden><h2 id="question">② えらんでね</h2><div id="choices" class="grid"></div><div class="actions"><button id="first">↩ はじめに もどる</button></div></section><section id="three" hidden><h2>③ この ぶんを のーとに うつそう！</h2><div id="sentence" class="result"></div><div class="actions"><button id="speak">🔊 よんでみる</button><button id="again">🔄 えらびなおす</button><button id="reset">🏠 はじめから</button></div></section></main><script>
+const data={
+a:['なにが わかった？',[
+['いろいたを ならべると いろいろな かたちが できる','いろいたを ならべると、いろいろな かたちが できることが わかりました。'],
+['さんかくを くみあわせると おおきな かたちが できる','さんかくを くみあわせると、おおきな かたちを つくれることが わかりました。'],
+['ならべかたを かえると ちがう かたちになる','おなじ いろいたでも、ならべかたを かえると ちがう かたちに なることが わかりました。'],
+['いろいたの むきを かえると かたちが かわる','いろいたの むきを かえると、できる かたちが かわることが わかりました。']]],
+b:['なにに きづいた？',[
+['さんかくを ふたつ あわせると おおきな さんかくに なる','さんかくを ふたつ あわせると、おおきな さんかくに なることに きづきました。'],
+['さんかくを ふたつ あわせると しかくに なる','さんかくを ふたつ あわせると、しかくに なることに きづきました。'],
+['おなじ いろいたでも いろいろな かたちを つくれる','おなじ いろいたでも、ならべかたを くふうすると いろいろな かたちが できることに きづきました。'],
+['いろいたの へんを ぴったり あわせると かたちが つくりやすい','いろいたの へんを ぴったり あわせると、かたちを つくりやすいことに きづきました。']]],
+c:['なにが できた？',[
+['いろいたを ならべて すきな かたちを つくった','いろいたを ならべて、じぶんの すきな かたちを つくることが できました。'],
+['いろいたを くみあわせて いえや ふねを つくった','いろいたを くみあわせて、いえや ふねの かたちを つくることが できました。'],
+['いろいたの むきや ばしょを くふうして つくった','いろいたの むきや ばしょを くふうして、かたちを つくることが できました。'],
+['ともだちに つくりかたを つたえた','じぶんが つくった かたちの くふうを、ともだちに つたえることが できました。']]],
+d:['もっと なにを しりたい？',[
+['いろいたを もっと ふやしたら なにが つくれるか','いろいたを もっと ふやしたら、どんな かたちが つくれるのか しりたいです。'],
+['おなじ いろいたで ほかに どんな かたちが つくれるか','おなじ いろいたで、ほかに どんな かたちが つくれるのか しりたいです。'],
+['さんかくを いくつ あわせると おおきな かたちに なるか','さんかくを いくつ あわせると、もっと おおきな かたちに なるのか しりたいです。'],
+['ともだちは どんな ならべかたを したのか','ともだちは どんな ならべかたを くふうしたのか、もっと しりたいです。']]]};
+const one=document.getElementById('one'),two=document.getElementById('two'),three=document.getElementById('three'),choices=document.getElementById('choices'),sentence=document.getElementById('sentence');function top(){window.scrollTo(0,0)}document.querySelectorAll('[data-key]').forEach(btn=>btn.addEventListener('click',()=>{let group=data[btn.dataset.key];document.getElementById('question').textContent='② '+group[0];choices.replaceChildren();group[1].forEach(([label,text])=>{let b=document.createElement('button');b.textContent=label;b.addEventListener('click',()=>{sentence.textContent=text;two.hidden=true;three.hidden=false;top()});choices.append(b)});one.hidden=true;two.hidden=false;top()}));document.getElementById('first').onclick=()=>{two.hidden=true;one.hidden=false;top()};document.getElementById('again').onclick=()=>{three.hidden=true;two.hidden=false;top()};document.getElementById('reset').onclick=()=>{three.hidden=true;one.hidden=false;top()};document.getElementById('speak').onclick=()=>{if('speechSynthesis' in window){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(sentence.textContent);u.lang='ja-JP';u.rate=.85;speechSynthesis.speak(u)}};
+</script></body></html>
